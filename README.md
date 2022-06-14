@@ -4,11 +4,11 @@ Python (Flask) API for USDA FSIS FoodKeeper data (<https://www.fsis.usda.gov/sha
 
 
 ### About the Project
-In Spring 2022, I participated in creating an API to access Foodkeeper data in Javascript. The goal was to then deploy
-using AWS and Kubernetes so the Libre Food Pantry network could use it for food storage information, but the project hit many roadbumps and
-not all goals were completed. \
+In Spring 2022, I participated in creating an API to access Foodkeeper data in Javascript. The goal was to then deploy using AWS and Kubernetes so the Libre Food Pantry network could use it for food storage information, but the project hit many roadbumps and not all goals were completed.
 
-I am learning Flask and thought rebuilding this API end-to-end would be a good project. This is the result of that work. \
+This project and my contributions can be found at <https://gitlab.com/LibreFoodPantry/common-services/foodkeeper>.
+
+I am learning Flask and thought rebuilding this API end-to-end would be a good project. This is the result of that work.
 
 I plan future work, such as creating a front-end interface for retrieving data.
 
