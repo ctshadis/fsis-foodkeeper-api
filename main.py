@@ -1,49 +1,76 @@
-from fastapi import Body, FastAPI
+# from fastapi import Body, FastAPI
+from flask import Flask, request
+import requests
+import json
 
-app = FastAPI()
+app = Flask(__name__)
+url = 'https://www.fsis.usda.gov/shared/data/EN/foodkeeper.json'
 
-@app.get("/")
+@app.route("/")
 def root():
+    
     return {"message": "hello world"}
 
-@app.get("/category")
+@app.route("/category")
 def get_categories():
-    return {"category": "something"}
+    r = requests.get(url)
+    js = r.json()['sheets']
+    categories = js[1]
+    if(request.args.get('category_id') == None):
+        return categories
+    else:
+        id = request.args.get('category_id')
+        categories = categories['data']
+        for cat in categories:
+            cat_dict = {}
+            for el in cat:
+                cat_dict.update(el)
+            if(cat_dict['ID']== float(id)):
+                categories = cat_dict
+
+
+    return categories
 
 # TODO /products/:id
 
-@app.get("/product")
+@app.route("/product")
 def get_products():
-    return {"product": "something"}
+    r = requests.get(url)
+    js = r.json()['sheets']
+    products = js[2]
+    return products
 
 # TODO /products/:id/name
 
-@app.get("/product/category")
+@app.route("/product/category")
 def get_product_category():
     return {"product": "something",
             "category": "vagueries"}
 
 # TODO /product/category/:id
 
-@app.post("/category")
-def create_category(payLoad: dict = Body(...)):
-    print(payLoad)
-    return {"new_post": f"Category: {payLoad['category']}, Subcategory: {payLoad['subcategory']}, Name: {payLoad['name']}"}
-
 
 # TODO /category/:id
 
 
-@app.get("/cookingMethod")
-def get_cooking_method():
-    return {"cooking method": "cook it"}
+@app.route("/cookingMethod")
+def get_cooking_methods():
+    r = requests.get(url)
+    js = r.json()['sheets']
+    cookingMethods = js[4]
+    return cookingMethods
 
 # TODO /cookingMethod/:id
 
 
-@app.get("/cookingTip")
+@app.route("/cookingTip")
 def get_cooking_tip():
-    return {"cooking tip": "cook it more"}
+    r = requests.get(url)
+    js = r.json()['sheets']
+    cookingTips = js[3]
+    return cookingTips
     
 # TODO /cookingTip/:id
 
+if __name__ == '__main__':
+    app.run(debug=True)
