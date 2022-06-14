@@ -1,5 +1,5 @@
-# from fastapi import Body, FastAPI
-from flask import Flask, request
+
+from flask import Flask, render_template, request
 import requests
 import json
 
@@ -13,7 +13,7 @@ def get_data():
 
 @app.route("/")
 def root():
-    return {"message": "Christian Shadis - FSIS Foodkeeper API"}, 200
+    return render_template('index.html'), 200
 
 # Return all or by-id food categories
 @app.route("/category")
