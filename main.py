@@ -13,7 +13,7 @@ def get_data():
 
 @app.route("/")
 def root():
-    return render_template('index.html'), 200
+    return render_template('readme.html'), 200
 
 # Return all or by-id food categories
 @app.route("/category")
