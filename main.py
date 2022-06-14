@@ -187,4 +187,4 @@ def get_cooking_tips():
         return "Resource Not Found", 404
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
