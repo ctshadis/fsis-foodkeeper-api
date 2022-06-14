@@ -1,85 +1,57 @@
 # FoodKeeper API
 
-API for USDA FSIS FoodKeeper data (<https://www.fsis.usda.gov/shared/data/EN/foodkeeper.json>)
+Python (Flask) API for USDA FSIS FoodKeeper data (<https://www.fsis.usda.gov/shared/data/EN/foodkeeper.json>)
 
 
 ### Application Download and Build
 ```
-$ git clone https://gitlab.com/LibreFoodPantry/FoodKeeper-API.git
-$ cd FoodKeeper-API
+$ git clone https://github.com/ctshadis/fsis-foodkeeper-api.git fsis-foodkeeper-api
+$ cd fsis-foodkeeper-api
 
-$ ./gradlew build
-$ ./gradlew bootrun
+If in Bash (Windows):
+$ . env/Scripts/activate
+$ python main.py
 
-Navigate to localhost:8080/ and the application should be running.
+If in Command Prompt (Windows):
+>env\Scripts\activate.bat
+>python main.py
+
+Navigate to localhost:5000/ and the application should be running.
 ```
 # FoodKeeper Backend
 
-Project hosting for the refactoring of the FoodKeeper API Backend in Javascript.
-
-### Application Download and Build
-To avoid dependency conflicts across projects, and to reduce variance
-between development platforms, we use VS Code devcontainers.
-
-New to VS Code devcontainers? Start here
-https://code.visualstudio.com/docs/remote/containers 
-and follow its installation instructions. Be sure to install and
-configure Git too.
-
-Now download, install, and run this project and its devcontainer as
-follows.
-
-1. Navigate to this project on GitLab and select
-    `Clone -> Open in your IDE -> Visual Studio Code (HTTPS)`.
-2. Select location to store the project.
-3. Select "Reopen in container" when option is provided.
-
-
-### Prepare Enviorment
-
-- cd into src: `cd src`
-- Install node packages: `npm i`
-
-### Run Server in Docker
-
-- Start Development Docker Container: `npm run docker-dev`
-- Start Production Docker: `npm run docker`
-
-### Updating Bundle Process
-
-Paste Open API Bundle into /lib
-rename file to openapi.yaml
-
-### 1.2. Prepare envionment 
-
-```
-bin/down.sh
-bin/up.sh
-```
-
-### 1.3. Rebuild and Test
-
-```
-bin/retest.sh
-```
-
-
+Foodkeeper data from the FSIS accessible through a Python Flask API.
 
 
 ## REST API Endpoints
 
-| Method | Endpoint  | Body  | Return | Note |
-| -----  | --------- | ----- | ------ | ---- |
-| GET   | /products | | | Returns list of all products |
-| GET    | /products/*id* | | {<br>"id": *id*, "name": *"name"*, "subtitle": *"subtitle"*, "keywords": *"keywords"*, <br>"pantryLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"pantryAfterOpeningLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"refrigeratorLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"refrigrateAfterOpeningLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"refrigerateAfterThawingLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"freezerLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"dop_pantryLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"dop_refrigeratorLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"dop_freezerLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*} <br>} | Returns product with given id |
-| GET   | /products/*id*/name | | *name* | Returns name for this product id |
-| GET   | /products/category/*categoryId* | | | Returns all products with the given category id |
-| GET   | /categories | | | Returns list of all categories |
-| GET   | /categories/*id* | | {"id": *id*, "name": *"name"*, "subcategory": *"subcategory"*} | Returns category with given id |
-| GET   | /cookingMethods | | | Returns list of all cooking methods |
-| GET   | /cookingMethods/*id* | | {"id": *id*, "method": *"method"*, "measureFrom": *measureFrom*, "measureTo": *measureTo*, "sizeMetric": *"sizeMetric"*, "cookingTemp", *"cookingTemp"*, "timingFrom": *timingfrom*, "timingTo": *timingTo*, "timingMetric": *"timingMetric"*, "timingPer": *"timingPer"*, "productId": *productId*} | Returns cooking method with given id |
-| GET   | /cookingTips | | | Returns list of all cooking tips |
-| GET   | /cookingTips/*id* | | {"id": *id*, "tips": *"tips"*, "safeMinTemp": *safeMinTemp*, "restTime": *restTime*, "restTimeMetric": *"restTimeMetric"*} | Returns cooking tip with given id |
+| Method | Endpoint  | Return | Note |
+| -----  | --------- | ------ | ---- |
+| GET   | /products | | Returns list of all products |
+| GET    | /products/*id* | {<br>"id": *id*, "name": *"name"*, "subtitle": *"subtitle"*, "keywords": *"keywords"*, <br>"pantryLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"pantryAfterOpeningLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"refrigeratorLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"refrigrateAfterOpeningLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"refrigerateAfterThawingLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"freezerLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"dop_pantryLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"dop_refrigeratorLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*}, <br>"dop_freezerLife": {"min": *min*, "max": *max*, "metric": *"metric"*, "tips": *"tips"*} <br>} | Returns product with given id |
+| GET   | /products/*id*/name |  *{"Name": name}* | Returns name for this product id |
+| GET   | /products/category/*categoryId* | | Returns all products with the given category id |
+| GET   | /categories | | Returns list of all categories |
+| GET   | /categories/*id* | {"id": *id*, "name": *"name"*, "subcategory": *"subcategory"*} | Returns category with given id |
+| GET   | /cookingMethods | | Returns list of all cooking methods |
+| GET   | /cookingMethods/*id* | {"id": *id*, "method": *"method"*, "measureFrom": *measureFrom*, "measureTo": *measureTo*, "sizeMetric": *"sizeMetric"*, "cookingTemp", *"cookingTemp"*, "timingFrom": *timingfrom*, "timingTo": *timingTo*, "timingMetric": *"timingMetric"*, "timingPer": *"timingPer"*, "productId": *productId*} | Returns cooking method with given id |
+| GET   | /cookingTips | | Returns list of all cooking tips |
+| GET   | /cookingTips/*id* | {"id": *id*, "tips": *"tips"*, "safeMinTemp": *safeMinTemp*, "restTime": *restTime*, "restTimeMetric": *"restTimeMetric"*} | Returns cooking tip with given id |
+
+
+### Querying API
+
+| Method | Endpoint | Sample HTTP Call |
+| -----  | --------- | ------ |
+| GET | category | GET http://127.0.0.1:5000/category HTTP/1.1|
+| GET | category/:id | GET http://127.0.0.1:5000/category?id=1 HTTP/1.1|
+| GET | product | GET http://127.0.0.1:5000/product HTTP/1.1|
+| GET | product/:id | GET http://127.0.0.1:5000/product?id=1 HTTP/1.1|
+| GET | product/:name | GET http://127.0.0.1:5000/product?name=dips HTTP/1.1|
+| GET | cookingMethod | GET http://127.0.0.1:5000/cookingMethod HTTP/1.1|
+| GET | cookingMethod/:id | GET http://127.0.0.1:5000/cookingMethod?id=1 HTTP/1.1|
+| GET | cookingTip | GET http://127.0.0.1:5000/category HTTP/1.1|
+| GET | cookingTip/:id | GET http://127.0.0.1:5000/cookingTip?id=1 HTTP/1.1|
 
 
 ### Class Representation of Food Keeper Data
@@ -158,6 +130,7 @@ bin/retest.sh
 		* Hours, Minutes, Seconds
 	* Timing_per: String
 		* Pound, Ounce, Inch
+
 
 
 ---
